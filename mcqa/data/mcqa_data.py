@@ -1,3 +1,5 @@
+from typing import Dict, List, Tuple
+
 import torch
 from torch.utils.data import TensorDataset
 
@@ -14,7 +16,7 @@ class MCQAData:
             bert_model, lower_case=lower_case)
         self.max_seq_length = max_seq_length
 
-    def convert_examples_to_features(self, examples):
+    def convert_examples_to_features(self, examples: List) -> List:
         """Convert a list of ``MCQAExample`` to a list of ``InputFeatures``
 
         MCQA is a multiple choice task. To perform this task using Bert,
@@ -96,7 +98,7 @@ class MCQAData:
 
         return features
 
-    def read(self, data_file, is_training):
+    def read(self, data_file: str, is_training: bool):
         """Read and preprocess data
 
         Arguments:

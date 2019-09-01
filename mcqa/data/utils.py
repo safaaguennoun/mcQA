@@ -1,3 +1,5 @@
+from typing import List, Tuple, Dict
+
 import csv
 
 import numpy as np
@@ -40,7 +42,7 @@ class InputFeatures:
         self.label = label
 
 
-def _truncate_seq_pair(tokens_a, tokens_b, max_length):
+def _truncate_seq_pair(tokens_a: str, tokens_b: str, max_length: int) -> None:
     """Truncates a sequence pair in place to the maximum length.
 
     This is a simple heuristic which will always truncate the longer sequence
@@ -64,7 +66,7 @@ def _truncate_seq_pair(tokens_a, tokens_b, max_length):
             tokens_b.pop()
 
 
-def select_field(features, field):
+def select_field(features: List, field: str) -> List:
     """Select a field from the features
 
     Arguments:
@@ -86,7 +88,7 @@ def select_field(features, field):
     ]
 
 
-def read_mcqa_examples(input_file, is_training):
+def read_mcqa_examples(input_file: str, is_training: bool) -> List:
     """Read an input file and return the corresponding MCQAExample instances.
 
     Arguments:
