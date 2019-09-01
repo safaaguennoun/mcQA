@@ -2,6 +2,8 @@ import logging
 import os
 import random
 
+from typing import List, Tuple, Dict
+
 import numpy as np
 from tqdm import tqdm, trange
 
