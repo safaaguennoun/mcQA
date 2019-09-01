@@ -2,8 +2,6 @@ import logging
 import os
 import random
 
-from typing import List, Tuple, Dict
-
 import numpy as np
 from tqdm import tqdm, trange
 
@@ -67,7 +65,7 @@ class Model():
         if n_gpu > 0:
             torch.cuda.manual_seed_all(seed)
 
-    def _prepare_model(self, freeze):
+    def _prepare_model(self, freeze: bool):
         """Prepare a model to be trained
 
         Arguments:
@@ -101,8 +99,8 @@ class Model():
 
         return model
 
-    def _prepare_optimizer(self, learning_rate, loss_scale, warmup_proportion,
-                           num_train_optimization_steps):
+    def _prepare_optimizer(self, learning_rate: float, loss_scale: float, warmup_proportion: float,
+                           num_train_optimization_steps: int):
         """Initialize the optimizer
 
         Arguments:
@@ -160,9 +158,9 @@ class Model():
 
         return optimizer, warmup_linear
 
-    def fit(self, train_dataset, train_batch_size, num_train_epochs,
-            learning_rate=5e-5, loss_scale=0, gradient_accumulation_steps=1,
-            warmup_proportion=0.1, freeze=True):
+    def fit(self, train_dataset, train_batch_size: int, num_train_epochs: int,
+            learning_rate: float = 5e-5, loss_scale: int = 0, gradient_accumulation_steps: int = 1,
+            warmup_proportion: float = 0.1, freeze: bool = True):
         """Train the multiple choice QA model
 
         Arguments:
@@ -272,7 +270,7 @@ class Model():
 
         return self.model
 
-    def save_model(self, path):
+    def save_model(self, path: str) -> None:
         """Save model to local
 
         Arguments:
@@ -292,7 +290,7 @@ class Model():
         torch.save(model_to_save.state_dict(), output_model_file)
         model_to_save.config.to_json_file(output_config_file)
 
-    def predict_proba(self, eval_dataset, eval_batch_size):
+    def predict_proba(self, eval_dataset, eval_batch_size: int) -> np.ndarray:
         """Predict probabilities of classes
 
         Arguments:
@@ -335,7 +333,7 @@ class Model():
 
         return np.array(outputs_proba)
 
-    def predict(self, eval_dataset, eval_batch_size):
+    def predict(self, eval_dataset, eval_batch_size: int) -> np.ndarray:
         """Genrate prediction of the eval dataset
 
         Arguments:
